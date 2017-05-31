@@ -25,7 +25,7 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 
 	err = htmlTemplate.Execute(&html, structSum)
 
-	if err != nil {git
+	if err != nil {
 		http.Error(w, err.Error(), 500)
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
