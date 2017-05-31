@@ -12,6 +12,8 @@ type add struct {
 	Sum int
 }
 
+var htmlTemplate = template.Must(template.ParseFiles("template.html"))
+
 func handleAdd(w http.ResponseWriter, r *http.Request) {
 
 	var html bytes.Buffer
@@ -21,13 +23,9 @@ func handleAdd(w http.ResponseWriter, r *http.Request) {
 	m := struct{ a, b int }{one, two}
 	structSum := add{Sum: m.a + m.b}
 
-	t, err := template.ParseFiles("template.html")
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-	}
-	err = t.Execute(&html, structSum)
+	err = htmlTemplate.Execute(&html, structSum)
 
-	if err != nil {
+	if err != nil {git
 		http.Error(w, err.Error(), 500)
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
